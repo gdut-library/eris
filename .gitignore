@@ -1,0 +1,14 @@
+*swp
+*~
+*pyc
+
+converter.py
+ext/
+*.pem
+gdut-library-helper.*
+!*.gm.js
+!*.crx
+
+venv/
+static/
+node_modules/
