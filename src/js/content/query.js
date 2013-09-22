@@ -75,7 +75,11 @@ function queryBook(keyword) {
     request
         .get(config.baseUri + '/book/search')
         .query({q: keyword})
-        .end(function(resp) {
+        .end(function(error, resp) {
+            if (error) {
+                dfd.reject(error);
+                return;
+            }
             if (resp.ok) {
                 dfd.resolve(resp.body.books);
             } else {
@@ -94,7 +98,11 @@ function queryISBN(isbn) {
     request
         .get(config.baseUri + '/book/search')
         .query({q: isbn})
-        .end(function(resp) {
+        .end(function(error, resp) {
+            if (error) {
+                dfd.reject(error);
+                return;
+            }
             // 确保 isbn 查询只匹配一本
             if (resp.ok && resp.body.books.length === 1) {
                 dfd.resolve(resp.body.books);
