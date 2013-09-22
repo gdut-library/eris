@@ -1,4 +1,4 @@
-.PHONY: clean prepare content background compilejs make_ext build
+.PHONY: clean gruntjs prepare content background compilejs make_ext build
 
 name=gdut-library-helper
 ext_src_path=src
@@ -7,12 +7,13 @@ ext_src_js_path=${ext_src_path}/js
 ext_dest_js_path=${ext_dest_path}/js
 chrome=`ls /usr/bin | grep 'chrom' | head -1`
 browserify=browserify
+grunt=grunt
 
 dev: prepare compilejs
 
 build: make_ext
 
-make_ext: prepare compilejs
+make_ext: prepare gruntjs compilejs
 	if [ -a ${name}.pem ]; \
 	then \
 		${chrome} --pack-extension=${ext_dest_path} --pack-extension-key=${name}.pem; \
@@ -35,6 +36,9 @@ background:
 	$(eval FILE=${ext_dest_js_path}/background.js)
 	${browserify} -o ${FILE}.tmp ${FILE}
 	mv ${FILE}.tmp ${FILE}
+
+gruntjs:
+	${grunt} default
 
 prepare: clean
 	cp -r ${ext_src_path} ${ext_dest_path}

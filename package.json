@@ -24,5 +24,9 @@
     "underscore": "~1.5.2",
     "q": "~0.9.7",
     "superagent-browserify": "0.0.2"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-text-replace": "~0.3.7"
   }
 }
