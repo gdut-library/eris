@@ -1,5 +1,7 @@
 var config = require('./config'),
-    ISBN = require('./vendor/isbn');
+    ISBN = require('./vendor/isbn'),
+    Q = require('q'),
+    request = require('superagent-browserify');
 
 /*
  * 转换 isbn 到 isbn10 / isbn13 格式
@@ -45,7 +47,38 @@ function cache(key, value) {
 }
 
 
+/*
+ * 将字符串转换为 GB2312  编码
+ *
+ * origin code from Bean Vine [0]
+ *
+ * [0] http://www.userscripts.org/scripts/review/49911
+ */
+function convertGB2312(str) {
+    var dfd = Q.defer();
+
+    request
+        .get('http://www.baidu.com/s')
+        .query({ie: 'utf-8'})
+        .query({wd: str})
+        .set('overrideMimeType', 'text/xml; charset=gb2312')
+        .end(function(error, resp) {
+            if (error) {
+                dfd.reject(error);
+            } else {
+                var gbStr = String(
+                    resp.xhr.responseText.match(/word=[^'"&]+['"&]/i))
+                        .replace(/word=|['"&]/ig, '');
+                dfd.resolve(gbStr);
+            }
+        });
+
+    return dfd.promise;
+}
+
+
 module.exports = {
     convertISBN: convertISBN,
-    cache: cache
+    cache: cache,
+    convertGB2312: convertGB2312
 };

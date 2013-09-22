@@ -83,7 +83,7 @@ function queryBook(keyword) {
             if (resp.ok) {
                 dfd.resolve(resp.body.books);
             } else {
-                dfd.reject(resp.body.books);
+                dfd.reject();
             }
         });
 

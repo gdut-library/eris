@@ -5,6 +5,7 @@
     "description": "广工大图书馆助手",
     "permissions": [
         "tabs",
+        "http://www.baidu.com/*",
         "http://book.douban.com/*",
         "http://127.0.0.1:9001/*"
     ],

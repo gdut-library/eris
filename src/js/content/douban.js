@@ -45,9 +45,14 @@ var subject = _.extend(page, {
     },
 
     inject: function(bookInfos, bookMeta) {
-        var pieces;
+        var that = this,
+            pieces,
+            detailCompare = function(b, meta) {
+                // TODO compare ISBN
+                return b.publisher === meta.publisher;
+            };
 
-        if (bookInfos.length === 1) {
+        if (bookInfos.length === 1 && detailCompare(bookInfos[0], bookMeta)) {
             var b = bookInfos[0];
             pieces = tmpl.remains({
                 url: config.libraryUri + '/bookinfo.aspx?ctrlno=' + b.ctrlno,
@@ -58,17 +63,19 @@ var subject = _.extend(page, {
             query.updateCache(_.extend(b, {
                 id: bookMeta.id
             }));
+
+            this.base.innerHTML += pieces;
         } else {
-            // TODO 进一步比较？
-            pieces = tmpl.similar({
-                // TODO GBK title
-                url: config.libraryUri + '/searchresult.aspx?dp=50&title=' +
-                     bookMeta.title,
-                total: bookInfos.length
+            utils.convertGB2312(bookMeta.title).then(function(gbTitle) {
+                pieces = tmpl.similar({
+                    url: config.libraryUri + '/searchresult.aspx?dp=50&anywords=' +
+                         gbTitle,
+                    total: bookInfos.length
+                });
+
+                that.base.innerHTML += pieces;
             });
         }
-
-        this.base.innerHTML += pieces;
     },
 
     injectError: function(bookInfos, bookMeta) {
