@@ -1,0 +1,28 @@
+{
+  "name": "gdut-library-helper",
+  "version": "0.5.0",
+  "description": "广工大图书馆助手",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gdut-library/eris.git"
+  },
+  "keywords": [
+    "chrome extension",
+    "library",
+    "gdut"
+  ],
+  "author": "hbc, linkkingjay",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/gdut-library/eris/issues"
+  },
+  "dependencies": {
+    "underscore": "~1.5.2",
+    "q": "~0.9.7",
+    "superagent-browserify": "0.0.2"
+  }
+}

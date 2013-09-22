@@ -1,0 +1,23 @@
+{
+    "name": "GDUT library helper",
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "description": "广工大图书馆助手",
+    "permissions": [
+        "tabs",
+        "http://book.douban.com/*",
+        "http://127.0.0.1:9001/*"
+    ],
+
+    "content_scripts": [{
+        "matches": ["http://book.douban.com/*"],
+        "js": [
+            "js/content/douban.js"
+        ],
+        "run_at": "document_idle"
+    }],
+    "background": {
+        "page": "background.html"
+    },
+    "options_page": "options.html"
+}
