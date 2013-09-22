@@ -1,4 +1,5 @@
 var _ = require('underscore'),
+    page = require('./page'),
     config = require('../config'),
     utils = require('../utils'),
     query = require('./query'),
@@ -6,22 +7,7 @@ var _ = require('underscore'),
     Q = require('q');
 
 
-var page = _.extend({}, {
-    parse: function() {
-        return {};
-    },
-
-    inject: function() {
-        console.log('inject here');
-    },
-
-    injectError: function() {
-        console.log('inject error here');
-    }
-});
-
-
-var subject = _.extend(page, {
+var subject = _.extend(page.page, {
     base: document.querySelector('#info'),
 
     parse: function() {
@@ -80,8 +66,8 @@ var subject = _.extend(page, {
 
     injectError: function(bookInfos, bookMeta) {
         var pieces = tmpl.notFound({
-            // TODO inject on readerrecommend
-            url: config.libraryUri + '/readerrecommend.aspx'
+            url: config.libraryUri + '/readerrecommend.aspx?' +
+                 utils.buildQueryParams(bookMeta)
         });
 
         this.base.innerHTML += pieces;

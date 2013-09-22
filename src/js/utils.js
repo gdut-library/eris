@@ -17,7 +17,10 @@ function convertISBN(isbn) {
             '10': isbn.isbn10,
             '10h': isbn.isbn10h,
             '13': isbn.isbn13,
-            '13h': isbn.isbn13h
+            '13h': isbn.isbn13h,
+            toString: function() {
+                return this['13'];
+            }
         };
     }
 
@@ -25,7 +28,10 @@ function convertISBN(isbn) {
         '10': isbn,
         '10h': isbn,
         '13': isbn,
-        '13h': isbn
+        '13h': isbn,
+        toLocaleString: function() {
+            return this['13'];
+        }
     };
 }
 
@@ -77,8 +83,55 @@ function convertGB2312(str) {
 }
 
 
+/*
+ * 获取 url 中的 query parameters
+ *
+ * origin code from http://stackoverflow.com/a/1099670
+ *
+ * added: 0.5.0
+ */
+function getQueryParams(qs) {
+    qs = qs.split("+").join(" ");
+
+    var params = {}, tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while ((tokens = re.exec(qs))) {
+        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
+}
+
+
+/*
+ * 构造 url query parameters
+ *
+ * added: 0.5.0
+ */
+function buildQueryParams(params) {
+    var qs = [],
+        key,
+        value;
+
+    for (key in params) {
+        value = params[key];
+        // for isbn
+        if (typeof value === 'object') {
+            value = value.toString();
+        }
+        qs.push(encodeURIComponent(key) + '=' +
+                encodeURIComponent(value));
+    }
+
+    return qs.join('&');
+}
+
+
 module.exports = {
     convertISBN: convertISBN,
     cache: cache,
-    convertGB2312: convertGB2312
+    convertGB2312: convertGB2312,
+    getQueryParams: getQueryParams,
+    buildQueryParams: buildQueryParams
 };

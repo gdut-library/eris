@@ -6,6 +6,7 @@
     "permissions": [
         "tabs",
         "http://www.baidu.com/*",
+        "http://222.200.98.171:81/*",
         "http://book.douban.com/*",
         "http://127.0.0.1:9001/*"
     ],
@@ -14,6 +15,12 @@
         "matches": ["http://book.douban.com/*"],
         "js": [
             "js/content/douban.js"
+        ],
+        "run_at": "document_idle"
+    }, {
+        "matches": ["http://222.200.98.171:81/readerrecommend.aspx*"],
+        "js": [
+            "js/content/readerrecommend.js"
         ],
         "run_at": "document_idle"
     }],
