@@ -62,7 +62,7 @@ function loginValidate() {
                     });
                     return;
                 } else {
-                    message.innerHTML = resp.body.msg;
+                    message.innerHTML = resp.body.msg || resp.body.error;
                     return;
                 }
             });
