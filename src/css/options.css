@@ -1,0 +1,94 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: #5092bd;
+}
+
+body {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+input[type=text],
+input[type=password] {
+    margin: 5px 5px 5px 0;
+    padding: 10px 5px 10px 15px;
+
+    font-size: 1.25em;
+    line-height: 1.25em;
+    border: 0;
+    outline: none;
+    background-color: #629dc2;
+    color: #cadeea;
+}
+
+input::-webkit-input-placeholder {
+    color: #cadeea;
+}
+
+input[type=submit] {
+    margin: 5px 0 5px 5px;
+    padding: 5px;
+
+    font-size: 1.25em;
+    line-height: 1.25em;
+    border: 0;
+    outline: none;
+    background: none;
+    color: #cadeea;
+}
+
+input[type=submit]:hover {
+    color: #efefef;
+    cursor: pointer;
+}
+
+input[type=text].medium,
+input[type=password].medium {
+    width: 275px;
+}
+
+.pull.right {
+    float: right;
+}
+
+.hide {
+    display: none;
+}
+
+.vcard {
+    margin-top: 125px;
+    margin-left: 80px;
+    width: 500px;
+}
+
+.vcard .field {
+    width: 275px;
+}
+
+.message h3 {
+    color: #efefef;
+}
+
+.message h3 em {
+    font-weight: normal;
+    color: #fefefe;
+}
+
+#infomations .name {
+    color: #efefef;
+}
+
+#infomations .name em {
+    font-weight: normal;
+    color: #fefefe;
+}
+
+#infomations .major {
+    color: #efefef;
+}

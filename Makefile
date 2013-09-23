@@ -1,4 +1,4 @@
-.PHONY: clean gruntjs prepare content background compilejs make_ext build
+.PHONY: clean gruntjs prepare content background option compilejs make_ext build
 
 name=gdut-library-helper
 ext_src_path=src
@@ -23,7 +23,7 @@ make_ext: prepare gruntjs compilejs
 	fi;
 	mv -f ${ext_dest_path}.crx ${name}.crx
 
-compilejs: content background
+compilejs: content background option
 
 content:
 	for i in `find ${ext_dest_js_path}/content -name '*.js'`; \
@@ -34,6 +34,11 @@ content:
 
 background:
 	$(eval FILE=${ext_dest_js_path}/background.js)
+	${browserify} -o ${FILE}.tmp ${FILE}
+	mv ${FILE}.tmp ${FILE}
+
+option:
+	$(eval FILE=${ext_dest_js_path}/options.js)
 	${browserify} -o ${FILE}.tmp ${FILE}
 	mv ${FILE}.tmp ${FILE}
 
