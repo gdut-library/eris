@@ -1,5 +1,6 @@
 var config = require('./config'),
     ISBN = require('./vendor/isbn'),
+    _ = require('underscore'),
     Q = require('q'),
     request = require('superagent-browserify');
 
@@ -128,10 +129,35 @@ function buildQueryParams(params) {
 }
 
 
+/*
+ * 获取当前的用户信息
+ *
+ * added: 0.5.0
+ */
+function getCurrentUser() {
+    var dfd = Q.defer();
+
+    chrome.extension.sendRequest({
+        name: 'user' 
+    }, function(userInfos) {
+        if (userInfos) {
+            dfd.resolve(_.extend(userInfos, {
+                isLogin: true
+            }));
+        } else {
+            dfd.reject(userInfos);
+        }
+    });
+
+    return dfd.promise;
+}
+
+
 module.exports = {
     convertISBN: convertISBN,
     cache: cache,
     convertGB2312: convertGB2312,
     getQueryParams: getQueryParams,
-    buildQueryParams: buildQueryParams
+    buildQueryParams: buildQueryParams,
+    getCurrentUser: getCurrentUser
 };

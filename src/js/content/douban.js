@@ -1,10 +1,11 @@
 var _ = require('underscore'),
+    Q = require('q'),
     page = require('./page'),
     config = require('../config'),
     utils = require('../utils'),
     query = require('./query'),
-    tmpl = require('./tmpl.douban'),
-    Q = require('q');
+    bookSlip = require('./bookslip'),
+    tmpl = require('./tmpl.douban');
 
 
 var subject = _.extend(page.page, {
@@ -40,17 +41,23 @@ var subject = _.extend(page.page, {
 
         if (bookInfos.length === 1 && detailCompare(bookInfos[0], bookMeta)) {
             var b = bookInfos[0];
+
             pieces = tmpl.remains({
                 url: config.libraryUri + '/bookinfo.aspx?ctrlno=' + b.ctrlno,
-                remains: b.available,
-                location: b.location
+                remains: b.available
             });
+            pieces += tmpl.addList(b);
+            pieces += tmpl.location(b);
+
+            that.base.innerHTML += pieces;
+
+            // 绑定借书单
+            bookSlip.parse(b);
+
             // 写入缓存
             query.updateCache(_.extend(b, {
                 id: bookMeta.id
             }));
-
-            this.base.innerHTML += pieces;
         } else {
             utils.convertGB2312(bookMeta.title).then(function(gbTitle) {
                 pieces = tmpl.similar({

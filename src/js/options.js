@@ -2,7 +2,8 @@
 
 var _ = require('underscore'),
     request = require('superagent-browserify'),
-    config = require('./config');
+    config = require('./config'),
+    utils = require('./utils');
 
 
 var loginForm = document.querySelector('#login'),
@@ -75,8 +76,27 @@ function showInfomations(userInfos) {
         '<h3 class="name"><em>Hi</em>, <%= name %></h3>' +
         '<h4 class="major"><%= faculty %> <%= major %></h4>');
 
+    var books = (function(books) {
+        var tmpl = _.template('<li><h3 class="title">' +
+                '<a href="<%= uri %>"><%= name %></a>' +
+            '</h3></li>'),
+            parent = _.template('<ul><%= list %></ul>'),
+            buf = '',
+            i;
+
+        for (i = 0;i < books.length;i++) {
+            buf += tmpl({
+                name: books[i].name,
+                uri: config.libraryUri + '/bookinfo.aspx?ctrlno=' +
+                     books[i].ctrlno
+            });
+        }
+
+        return parent({list: buf});
+    })(userInfos.bookSlip);
+
     infomations.classList.remove('hide');
-    infomations.innerHTML = tmpl(userInfos.user);
+    infomations.innerHTML = tmpl(userInfos.user) + books;
 }
 
 
@@ -87,15 +107,9 @@ function main() {
         parts[i].classList.add('hide');
     }
 
-    chrome.extension.sendRequest({
-        name: 'user'
-    }, function(user) {
-        if (user) {
-            showInfomations(user);
-        } else {
-            loginValidate();
-        }
-    });
+    utils.getCurrentUser()
+        .then(showInfomations)
+        .fail(loginValidate);
 }
 
 main();
