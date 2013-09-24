@@ -22,12 +22,20 @@ function displayOptionsPage(cb) {
 
 
 function onRequest(req, sender, resp) {
+    var user;
+
     if (req.name === 'cache') {
         resp(utils.cache(req.key, req.value));
     } else if (req.name === 'user') {
-        resp(_.extend(utils.cache('user', req.value), {
-            bookSlip: utils.cache('bookSlip')
-        }));
+        user = utils.cache('user', req.value);
+
+        if (user) {
+            user = _.extend(user, {
+                bookSlip: utils.cache('bookSlip')
+            });
+        }
+
+        resp(user);
     } else if (req.name === 'userLogin') {
         displayOptionsPage(resp);
     } else if (req.name === 'bookSlip:get') {

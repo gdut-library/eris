@@ -138,7 +138,7 @@ function getCurrentUser() {
     var dfd = Q.defer();
 
     chrome.extension.sendRequest({
-        name: 'user' 
+        name: 'user'
     }, function(userInfos) {
         if (userInfos) {
             dfd.resolve(_.extend(userInfos, {
