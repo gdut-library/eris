@@ -83,7 +83,7 @@ function queryBook(keyword) {
             if (resp.ok) {
                 dfd.resolve(resp.body.books);
             } else {
-                dfd.reject();
+                dfd.reject(resp.body.error);
             }
         });
 
@@ -107,7 +107,7 @@ function queryISBN(isbn) {
             if (resp.ok && resp.body.books.length === 1) {
                 dfd.resolve(resp.body.books);
             } else {
-                dfd.reject(resp.body);
+                dfd.reject(resp.body.error);
             }
         });
 
