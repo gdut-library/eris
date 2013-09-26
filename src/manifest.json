@@ -24,6 +24,12 @@
             "js/content/readerrecommend.js"
         ],
         "run_at": "document_idle"
+    }, {
+        "matches": ["http://222.200.98.171:81/bookinfo.aspx*"],
+        "js": [
+            "js/content/bookinfo.js"
+        ],
+        "run_at": "document_idle"
     }],
     "background": {
         "page": "background.html"
