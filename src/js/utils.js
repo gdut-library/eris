@@ -153,11 +153,30 @@ function getCurrentUser() {
 }
 
 
+/*
+ * 提供类似 `_.template` 的模板语法，
+ * 只提供变量代换
+ *
+ * added: 0.5.0
+ */
+function template(tmpl, data) {
+    var pattern = /<%=([\w ]+)%>/,
+        r;
+
+    while ((r = pattern.exec(tmpl)) !== null) {
+        tmpl = tmpl.replace(r[0], data[r[1].trim()]);
+    }
+
+    return tmpl;
+}
+
+
 module.exports = {
     convertISBN: convertISBN,
     cache: cache,
     convertGB2312: convertGB2312,
     getQueryParams: getQueryParams,
     buildQueryParams: buildQueryParams,
-    getCurrentUser: getCurrentUser
+    getCurrentUser: getCurrentUser,
+    template: template
 };

@@ -6,6 +6,14 @@ var _ = require('underscore'),
     utils = require('./utils');
 
 
+// monkey patch `_.template` due to CSP restrict
+_.template = function(tmpl) {
+    return function(data) {
+        return utils.template(tmpl, data);
+    };
+};
+
+
 var loginForm = document.querySelector('#login'),
     informations = document.querySelector('#infomations'),
     parts = [loginForm, infomations];
@@ -71,7 +79,6 @@ function loginValidate() {
 }
 
 function showInfomations(userInfos) {
-    // TODO remove templating
     var tmpl = _.template('' +
         '<h3 class="name"><em>Hi</em>, <%= name %></h3>' +
         '<h4 class="major"><%= faculty %> <%= major %></h4>');
