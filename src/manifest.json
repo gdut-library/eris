@@ -8,7 +8,8 @@
         "http://www.baidu.com/*",
         "http://222.200.98.171:81/*",
         "http://book.douban.com/*",
-        "http://127.0.0.1:9001/*"
+        "http://127.0.0.1:9001/*",
+        "http://www.amazon.cn/*"
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 
@@ -28,6 +29,12 @@
         "matches": ["http://222.200.98.171:81/bookinfo.aspx*"],
         "js": [
             "js/content/bookinfo.js"
+        ],
+        "run_at": "document_idle"
+    }, {
+        "matches": ["http://www.amazon.cn/*"],
+        "js": [
+            "js/content/amazon.js"
         ],
         "run_at": "document_idle"
     }],
