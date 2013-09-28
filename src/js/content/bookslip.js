@@ -1,11 +1,16 @@
 /*global chrome*/
+/*
+ * bookslip.js
+ *
+ * 绑定页面借书单操作
+ */
 
 var _ = require('underscore'),
     utils = require('../utils');
 
 
 function injectActions(fn) {
-    var selector = '.bookslip',
+    var selector = '.bookslip', // 选择元素
         actions = document.querySelectorAll(selector),
         i;
 
@@ -15,6 +20,7 @@ function injectActions(fn) {
 }
 
 
+// 提示已经在借书单中
 function injectAdded() {
     injectActions(function(element) {
         element.innerText = '从借书单里移除';
@@ -33,6 +39,7 @@ function injectAdded() {
 }
 
 
+// 添加到借书单
 function injectAdd(userInfos) {
     injectActions(function(element) {
         element.innerText = '添加到借书单';
@@ -51,6 +58,7 @@ function injectAdd(userInfos) {
 }
 
 
+// 提示登录后要刷新页面
 function injectRefresh() {
     injectActions(function(element) {
         element.innerText = '点击刷新页面';
@@ -62,6 +70,7 @@ function injectRefresh() {
 }
 
 
+// 提示需要登录
 function injectLoginRequired() {
     injectActions(function(element) {
         element.innerText = '添加到借书单';
@@ -77,11 +86,13 @@ function injectLoginRequired() {
 
 
 function parse(meta) {
+    // 检查当前用户是否登录
     utils.getCurrentUser()
         .then(function() {
             chrome.extension.sendRequest({
                 name: 'bookSlip:get'
             }, function(books) {
+                // 检查是否在借书单中
                 if (_.findWhere(books, {ctrlno: meta.ctrlno})) {
                     injectAdded();
                 } else {

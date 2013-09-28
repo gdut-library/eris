@@ -1,4 +1,10 @@
 /*global chrome*/
+/*
+ * bookslip.js
+ *
+ * 借书单
+ */
+
 
 var Q = require('q'),
     request = require('superagent-browserify'),
@@ -6,7 +12,11 @@ var Q = require('q'),
     utils = require('./utils');
 
 
-/* 同步服务器端到本地 */
+/**
+ * 同步服务器端借书单记录到本地
+ *
+ * @return promise 对象
+ */
 function update() {
     var dfd = Q.defer();
 
@@ -30,6 +40,12 @@ function update() {
 }
 
 
+/**
+ * 添加一个条目到借书单
+ *
+ * @param ctrlno 条目的控制编码
+ * @return promise 对象
+ */
 function add(ctrlno) {
     var dfd = Q.defer();
 
@@ -44,6 +60,7 @@ function add(ctrlno) {
             }
 
             if (resp.ok) {
+                // 更新服务器端数据到本地
                 update();
                 dfd.resolve();
             }
@@ -53,6 +70,12 @@ function add(ctrlno) {
 }
 
 
+/**
+ * 从借书单中移除一个条目
+ *
+ * @param ctrlno 条目的控制编码
+ * @return promise 对象
+ */
 function remove(ctrlno) {
     var dfd = Q.defer();
 
@@ -76,7 +99,12 @@ function remove(ctrlno) {
 }
 
 
-function get(ctrlno) {
+/**
+ * 获取整个借书单
+ *
+ * @return promise 对象
+ */
+function get() {
     var dfd = Q.defer();
 
     update().then(function(books) {

@@ -1,4 +1,10 @@
 /*global chrome*/
+/*
+ * options.js
+ *
+ * 选项页控制
+ */
+
 
 var _ = require('underscore'),
     request = require('superagent-browserify'),
@@ -6,7 +12,7 @@ var _ = require('underscore'),
     utils = require('./utils');
 
 
-// monkey patch `_.template` due to CSP restrict
+// 对 `_.template` 进行 monkey patch，去除对 CSP 的依赖
 _.template = function(tmpl) {
     return function(data) {
         return utils.template(tmpl, data);
@@ -19,11 +25,11 @@ var loginForm = document.querySelector('#login'),
     parts = [loginForm, infomations];
 
 
+// 显示登录表单
 function loginValidate() {
     var username = document.querySelector('input[name="username"]'),
         password = document.querySelector('input[name="password"]'),
         message = document.querySelector('.message h3');
-
 
     loginForm.classList.remove('hide');
     loginForm.onsubmit = function(e) {
@@ -53,7 +59,9 @@ function loginValidate() {
                 var userInfos;
 
                 if (error) {
-                    console.log(error);
+                    // TODO 根据错误内容设置错误信息
+                    // e.g. 密码错误
+                    console.error(error);
                     message.innerHTML = '网络错误';
                     return;
                 }
@@ -63,6 +71,7 @@ function loginValidate() {
                         username: name,
                         password: pwd
                     });
+                    // 登录成功后保存用户信息并刷新本页
                     chrome.extension.sendRequest({
                         name: 'user',
                         value: userInfos
@@ -71,13 +80,15 @@ function loginValidate() {
                     });
                     return;
                 } else {
-                    message.innerHTML = resp.body.msg || resp.body.error;
+                    message.innerHTML = resp.body.error;
                     return;
                 }
             });
     };
 }
 
+
+// 显示用户个人信息
 function showInfomations(userInfos) {
     var tmpl = _.template('' +
         '<h3 class="name"><em>Hi</em>, <%= name %></h3>' +
@@ -115,8 +126,11 @@ function main() {
     }
 
     utils.getCurrentUser()
+        // 如果用户已经登录，显示用户信息
         .then(showInfomations)
+        // 未登录则显示登录表单
         .fail(loginValidate);
 }
+
 
 main();
