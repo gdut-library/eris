@@ -28,7 +28,7 @@ function injectAdded() {
             var ctrlno = element.attributes['data-ctrlno'].value;
             e.preventDefault();
 
-            chrome.extension.sendRequest({
+            chrome.extension.sendMessage({
                 name: 'bookSlip:remove',
                 key: ctrlno
             }, function() {
@@ -47,7 +47,7 @@ function injectAdd(userInfos) {
             var ctrlno = element.attributes['data-ctrlno'].value;
             e.preventDefault();
 
-            chrome.extension.sendRequest({
+            chrome.extension.sendMessage({
                 name: 'bookSlip:add',
                 key: ctrlno
             }, function() {
@@ -77,7 +77,7 @@ function injectLoginRequired() {
         element.onclick = function(e) {
             e.preventDefault();
 
-            chrome.extension.sendRequest({name: 'userLogin'}, function() {
+            chrome.extension.sendMessage({name: 'userLogin'}, function() {
                 injectRefresh();
             });
         };
@@ -89,7 +89,7 @@ function parse(meta) {
     // 检查当前用户是否登录
     utils.getCurrentUser()
         .then(function() {
-            chrome.extension.sendRequest({
+            chrome.extension.sendMessage({
                 name: 'bookSlip:get'
             }, function(books) {
                 // 检查是否在借书单中

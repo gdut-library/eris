@@ -40,6 +40,8 @@ function displayOptionsPage(cb) {
 function onRequest(req, sender, resp) {
     var user;
 
+    console.log(req);
+
     if (req.name === 'cache') {
         // 缓存获取、设置
         resp(utils.cache(req.key, req.value));
@@ -70,8 +72,10 @@ function onRequest(req, sender, resp) {
     } else {
         console.error(req, 'nothing to do with that');
     }
+
+    return true;
 }
 
 
 // 注册监听函数
-chrome.extension.onRequest.addListener(onRequest);
+chrome.extension.onMessage.addListener(onRequest);

@@ -38,7 +38,8 @@
         "run_at": "document_idle"
     }],
     "background": {
-        "page": "background.html"
+        "page": "background.html",
+        "persistent": false
     },
     "options_page": "options.html"
 }

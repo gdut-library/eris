@@ -72,7 +72,7 @@ function loginValidate() {
                         password: pwd
                     });
                     // 登录成功后保存用户信息并刷新本页
-                    chrome.extension.sendRequest({
+                    chrome.extension.sendMessage({
                         name: 'user',
                         value: userInfos
                     }, function() {

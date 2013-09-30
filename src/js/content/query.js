@@ -19,7 +19,7 @@ var Q = require('q'),
 function removeCache(book) {
     var dfd = Q.defer();
 
-    chrome.extension.sendRequest({
+    chrome.extension.sendMessage({
         name: 'cache',
         key: book.id,
         value: null
@@ -48,7 +48,7 @@ function updateCache(book) {
         // 第一次浏览
         book.view = 1;
     }
-    chrome.extension.sendRequest({
+    chrome.extension.sendMessage({
         name: 'cache',
         key: book.id,
         value: book
@@ -72,7 +72,7 @@ function updateCache(book) {
 function queryCache(book) {
     var dfd = Q.defer();
 
-    chrome.extension.sendRequest({
+    chrome.extension.sendMessage({
         name: 'cache',
         key: book.id,
         value: undefined

@@ -166,7 +166,7 @@ function buildQueryParams(params) {
 function getCurrentUser() {
     var dfd = Q.defer();
 
-    chrome.extension.sendRequest({
+    chrome.extension.sendMessage({
         name: 'user'
     }, function(userInfos) {
         if (userInfos) {
