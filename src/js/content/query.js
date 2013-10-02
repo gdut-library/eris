@@ -114,7 +114,11 @@ function queryBook(keyword) {
             if (resp.ok) {
                 dfd.resolve(resp.body.books);
             } else {
-                dfd.reject(resp.body.error);
+                if (resp.body && resp.body.error) {
+                    dfd.reject(resp.body.error);
+                } else {
+                    dfd.reject('not found');
+                }
             }
         });
 
@@ -144,7 +148,11 @@ function queryISBN(isbn) {
                 // 确保 isbn 查询只匹配一本
                 dfd.resolve(resp.body.books);
             } else {
-                dfd.reject(resp.body.error);
+                if (resp.body && resp.body.error) {
+                    dfd.reject(resp.body.error);
+                } else {
+                    dfd.reject('not found');
+                }
             }
         });
 
