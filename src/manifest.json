@@ -5,6 +5,7 @@
     "description": "广工大图书馆助手",
     "permissions": [
         "tabs",
+        "http://beta.youknowmymind.com:1944/*",
         "http://www.baidu.com/*",
         "http://222.200.98.171:81/*",
         "http://book.douban.com/*",
