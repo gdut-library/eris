@@ -1,0 +1,17 @@
+# eris
+
+广工图书馆豆瓣读书助手 (全国[第三漂亮](http://daxue.163.com/11/1115/16/7ITQV90H00913JC5_all.html)的图书馆书还是挺多的哦！)
+
+当前版本：
+[v0.5.0-alpha](https://github.com/gdut-library/eris/releases/tag/v0.5.0-alpha)
+
+
+## 开发者
+
+[@linkkingjay](https://github.com/linkkingjay)
+
+[@hbc](http://www.douban.com/people/minihbc)
+
+[维生数工作室](http://vtmerhome.com/)
+
+[关注我们的微博](http://weibo.com/vtmer)
