@@ -46,14 +46,26 @@ var amazon = _.extend(page.page, {
                 url: config.libraryUri + '/bookinfo.aspx?ctrlno=' + b.ctrlno,
                 remains: b.available
             });
-            pieces += tmpl.addList(b);
+
+            // TODO 在 bookslip 里处理
+            // 目前就是模板和借书单的绑定分离了
+            // 应该将这两个合并在一起
+            if (config.enableBookSlip) {
+                pieces += tmpl.addList(b);
+            }
+
             pieces += tmpl.location(b);
 
             that.base.innerHTML += pieces;
 
             // 绑定借书单
-            bookSlip.parse(b);
-            
+            // TODO 在 bookslip 里处理
+            // 目前就是模板和借书单的绑定分离了
+            // 应该将这两个合并在一起
+            if (config.enableBookSlip) {
+                bookSlip.parse(b);
+            }
+
             // 写入缓存
             query.updateCache(_.extend(b, {
                 id: bookMeta.id

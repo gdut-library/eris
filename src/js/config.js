@@ -16,5 +16,8 @@ module.exports = {
     libraryUri: 'http://222.200.98.171:81',
 
     // 条目缓存次数
-    refresh: 5
+    refresh: 5,
+
+    // 是否启用借书单
+    enableBookSlip: false
 };

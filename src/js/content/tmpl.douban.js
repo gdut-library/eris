@@ -8,7 +8,7 @@ module.exports = {
     location: _('<br /> 在 <%= location %>'),
 
     addList: _(' | <a href="#" data-ctrlno="<%= ctrlno %>"' +
-               ' class="bookslip">添加到借书单</a>'),
+               ' class="bookslip"></a>'),
 
     similar: _('<span class="pl">GDUT:</span>&nbsp;' +
                '<a target="_blank" href=<%= url %>>找到 <%= total %> 本类似的</a>'),
