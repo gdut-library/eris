@@ -52,7 +52,7 @@ function onRequest(req, sender, resp) {
 
         if (user) {
             user = _.extend(user, {
-                bookSlip: utils.cache('bookSlip')
+                bookSlip: utils.cache('bookSlip') || []
             });
         }
 
