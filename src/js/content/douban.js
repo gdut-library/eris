@@ -35,7 +35,6 @@ var subject = _.extend(page.page, {
         var that = this,
             pieces,
             detailCompare = function(b, meta) {
-                // TODO compare ISBN
                 return b.publisher === meta.publisher;
             };
 
