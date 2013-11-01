@@ -35,9 +35,15 @@ var amazon = _.extend(page.page, {
         var that = this,
             pieces;
             detailCompare = function(b, meta) {
-            // TODO compare ISBN
-            return b.publisher === meta.publisher;
-        };
+                if (b.details) {
+                    for (var i in meta.isbn) {
+                        if (meta.isbn[i] === b.details.isbn) {
+                            return true;
+                        }
+                    }
+                }
+                return b.publisher === meta.publisher;
+            };
 
         if (bookInfos.length === 1 && detailCompare(bookInfos[0], bookMeta)) {
             var b = bookInfos[0];

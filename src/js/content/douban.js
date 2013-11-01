@@ -35,6 +35,13 @@ var subject = _.extend(page.page, {
         var that = this,
             pieces,
             detailCompare = function(b, meta) {
+                if (b.details) {
+                    for (var i in meta.isbn) {
+                        if (meta.isbn[i] === b.details.isbn) {
+                            return true;
+                        }
+                    }
+                }
                 return b.publisher === meta.publisher;
             };
 
